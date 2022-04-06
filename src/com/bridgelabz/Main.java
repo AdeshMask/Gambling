@@ -4,14 +4,20 @@ import java.util.Scanner;
 
 public class Main {
 
+    public static double stake = 0;
+    public static int times = 1;
+    public static int goal = 0;
+    static Scanner scanner = new Scanner(System.in);
+
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Game game = new Game();
+
         System.out.println("Enter Stake dollar");
-        int stake = scanner.nextInt();
-        if (stake >= 100){
-            System.out.println("Start the game:");
-        }
-        else
-            System.out.println("Not enough stake of dollars:");
+        stake = scanner.nextDouble();
+        System.out.println("Enter goal");
+        goal = scanner.nextInt();
+        System.out.println("Enter number of times you want to play");
+        times = scanner.nextInt();
+        game.play(stake,times,goal);
     }
 }
