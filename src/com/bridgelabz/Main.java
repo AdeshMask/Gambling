@@ -14,10 +14,13 @@ public class Main {
 
         System.out.println("Enter Stake dollar");
         stake = scanner.nextDouble();
-        System.out.println("Enter goal");
-        goal = scanner.nextInt();
-        System.out.println("Enter number of times you want to play");
-        times = scanner.nextInt();
-        game.play(stake,times,goal);
+        if (stake >= 100) {
+            System.out.println("Enter goal");
+            goal = scanner.nextInt();
+            System.out.println("Enter number of times you want to play");
+            times = scanner.nextInt();
+            game.play(stake, times, goal);
+        }
+        else System.out.println("Not enough Stakes:");
     }
 }
