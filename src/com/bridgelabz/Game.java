@@ -1,30 +1,46 @@
 package com.bridgelabz;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Game {
 
-    public static int stake = 100;
-    public static int times = 100;
-    public static int goal = 150;
-    public int stakes_Won_For_The_Month = 0;
-    public int stakes_Looose_For_The_Month = 0;
     static Scanner scanner = new Scanner(System.in);
+    public static int stake;
+    public static int goal;
+    public static int times;
     int day = 1;
+    public int day_Won = 0;
+    public int day_Loose = 0;
+    public static int total_Amount_Of_The_Month = 0;
 
-    void gamePlay(){
-        for (; day <= 20; day++){
-            System.out.println("\nDay: "+day);
+
+
+    void gamePlay() {
+        System.out.println("Enter th amount:");
+        stake = scanner.nextInt();
+        System.out.println("Enter the goal");
+        goal = scanner.nextInt();
+        System.out.println("Enetr how many times wants to play");
+        times = scanner.nextInt();
+        for (int i = 1; i <= 20; i++) {
+            System.out.println("\nDay: " + day);
             if (stake >= 100) {
                 play(stake, times, goal);
             }
             else System.out.println("Not enough Stakes:");
         }
-        if (stakes_Won_For_The_Month >= stake){
-            System.out.println("Stakes Earn for the month: "+stakes_Won_For_The_Month);
-        }
-        else {
-            System.out.println("Stakes loose for the month: "+stakes_Looose_For_The_Month);
+        System.out.println("\nWinning Days:" +day_Won);
+        System.out.println("Loosing Days:" +day_Loose);
+        System.out.println("Actual amount" +stake);
+        System.out.println("Amount collected at the end of the month is:: " +total_Amount_Of_The_Month);
+        if (total_Amount_Of_The_Month > 0) {
+            System.out.println("Winning amount of the month is:" + total_Amount_Of_The_Month);
+            System.out.println("Total amount is:: " + (total_Amount_Of_The_Month + stake));
+        }else {
+            System.out.println("Loosing amount of the month is: "+total_Amount_Of_The_Month);
+            System.out.println("Total amount is:: " + (stake + total_Amount_Of_The_Month));
         }
     }
 
@@ -33,51 +49,56 @@ public class Game {
         int tempTime = times;
         int win = 0;
         int lose = 0;
+        int bets = 1;
+        int i=0;
         int earnStakeDay = 0;
-        int toatalStakes = stake;
-            while (tempStake != 0 && tempStake != goal) {
+        while (tempStake != 0 && tempStake != goal) {
+            if (tempTime > -1) {
                 if (tempStake != 0) {
-                    if (tempStake != goal) {
+                    if (win != goal) {
                         if (Math.random() > 0.5) {
                             tempStake++;
                             win++;
-                            System.out.println("Won: " + tempStake);
+                            if (tempStake == (stake/2)){
+                                System.out.println("Resign for the day:");
+                                break;
+                            }
                         } else {
                             tempStake--;
                             lose++;
-                            System.out.println("Loss: " + tempStake);
-                            if (tempStake == stake / 2) {
-                                System.out.println("You can resign from the game:\n " +
-                                        "Press 1 for resign for the day \n press 2 for continue:");
-                                int choice = scanner.nextInt();
-                                if (choice == 1){
-                                    earnStakeDay = stake - tempStake;
-                                    break;
-                                }else
-                                    continue;
+                            if (tempStake == (stake / 2)){
+                                System.out.println("Resign for the day:");
+                                break;
                             }
                         }
-                    }else {
-                        System.out.println("Gambler reached to goal Congratulations.......");
-                        System.out.println("Total Stakes earn for the Day = "+(tempStake-stake));
+                    } else {
+                        System.out.println("Gambler reached to goal.....");
                         break;
                     }
                 } else {
-                    System.out.println("You can't play anymore:");
+                    System.out.println("Stake amount is 0 not able to play now");
                 }
+            } else {
+                break;
             }
-            System.out.println("\nStakes at the star of the Day: " + stake);
-            System.out.println("times: " + tempTime);
-            System.out.println("Won/Loose stakes: " + tempStake);
-            System.out.println("Stakes earn for the day: "+earnStakeDay);
-            System.out.println("Total Stakes of the day: :" + tempStake);
-            day++;
-        if (earnStakeDay >= stake){
-            stakes_Won_For_The_Month = stakes_Won_For_The_Month + earnStakeDay;
+            tempTime--;
+            bets++;
+            }
+
+        System.out.println("\nStakes at the start of the Day: " + stake);
+        System.out.println("Won/Loose stakes: " + tempStake);
+        if (tempStake > stake){
+            earnStakeDay = tempStake -stake;
+            System.out.println("Stakes earn for the winning day: "+earnStakeDay);
+            day_Won++;
+            total_Amount_Of_The_Month = total_Amount_Of_The_Month + earnStakeDay;
         }
         else {
-            stakes_Looose_For_The_Month =  earnStakeDay - stakes_Looose_For_The_Month;
+            earnStakeDay = stake - tempStake;
+            System.out.println("Stakes loose for the day: "+earnStakeDay);
+            day_Loose++;
+            total_Amount_Of_The_Month = total_Amount_Of_The_Month - earnStakeDay;
         }
-            gamePlay();
+    day++;
     }
 }
