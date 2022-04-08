@@ -1,10 +1,8 @@
 package com.bridgelabz;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
-public class Game {
+public class GamblerGame {
 
     static Scanner scanner = new Scanner(System.in);
     public static int stake;
@@ -14,6 +12,11 @@ public class Game {
     public int day_Won = 0;
     public int day_Loose = 0;
     public static int total_Amount_Of_The_Month = 0;
+    public static int lucky_Day = 1;
+    public static int un_Lucky_Day = 1;
+    int n = 0;
+    int lucky = 0;
+    int unlucky = 0;
 
 
 
@@ -42,6 +45,8 @@ public class Game {
             System.out.println("Loosing amount of the month is: "+total_Amount_Of_The_Month);
             System.out.println("Total amount is:: " + (stake + total_Amount_Of_The_Month));
         }
+        System.out.println("Luckies Day of the Month is: "+ lucky_Day);
+        System.out.println("Un-Luckiest day of the Month is: "+un_Lucky_Day);
     }
 
     public void play(int stake, int times, int goal) {
@@ -87,17 +92,27 @@ public class Game {
 
         System.out.println("\nStakes at the start of the Day: " + stake);
         System.out.println("Won/Loose stakes: " + tempStake);
+
         if (tempStake > stake){
             earnStakeDay = tempStake -stake;
             System.out.println("Stakes earn for the winning day: "+earnStakeDay);
             day_Won++;
             total_Amount_Of_The_Month = total_Amount_Of_The_Month + earnStakeDay;
+            if (earnStakeDay > lucky){
+                lucky = earnStakeDay;
+                lucky_Day = day;
+            }
+
         }
         else {
             earnStakeDay = stake - tempStake;
             System.out.println("Stakes loose for the day: "+earnStakeDay);
             day_Loose++;
             total_Amount_Of_The_Month = total_Amount_Of_The_Month - earnStakeDay;
+            if (earnStakeDay > unlucky){
+                unlucky = earnStakeDay;
+                un_Lucky_Day = day;
+            }
         }
     day++;
     }

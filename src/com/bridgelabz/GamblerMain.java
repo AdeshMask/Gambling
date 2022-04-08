@@ -1,12 +1,12 @@
 package com.bridgelabz;
 
 
-public class Main {
+public class GamblerMain {
 
 
 
     public static void main(String[] args) {
-        Game game = new Game();
+        GamblerGame game = new GamblerGame();
         game.gamePlay();
     }
 }
