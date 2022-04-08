@@ -14,9 +14,9 @@ public class GamblerGame {
     public static int total_Amount_Of_The_Month = 0;
     public static int lucky_Day = 1;
     public static int un_Lucky_Day = 1;
-    int n = 0;
     int lucky = 0;
     int unlucky = 0;
+    int total_amount = 0;
 
 
 
@@ -43,10 +43,16 @@ public class GamblerGame {
             System.out.println("Total amount is:: " + (total_Amount_Of_The_Month + stake));
         }else {
             System.out.println("Loosing amount of the month is: "+total_Amount_Of_The_Month);
-            System.out.println("Total amount is:: " + (stake + total_Amount_Of_The_Month));
+            total_amount = stake +total_Amount_Of_The_Month;
+            System.out.println("Total amount is:: " + total_amount);
         }
         System.out.println("Luckies Day of the Month is: "+ lucky_Day);
         System.out.println("Un-Luckiest day of the Month is: "+un_Lucky_Day);
+        if (total_amount >= goal){
+            System.out.println("Congrats....You won.\nWould like to play for the next press 1");
+            int choice = scanner.nextInt();
+            gamePlay();
+        }
     }
 
     public void play(int stake, int times, int goal) {
